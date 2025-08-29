@@ -1244,26 +1244,15 @@
     </script>
 
     <script>
-        }
-
-                }
-            }
-        }
-
-    </script>
-
-    </div>
-    <script>
         function navigateToModel(modelFile) {
             if (modelFile) {
-                console.log("Navigating to:", modelFile);
                 window.location.href = modelFile;
             }
         }
 
         function setCurrentModel() {
-            const currentFile = window.location.pathname.split("/").pop();
-            const dropdown = document.getElementById("modelSelect");
+            const currentFile = window.location.pathname.split('/').pop();
+            const dropdown = document.getElementById('modelSelect');
             if (dropdown) {
                 for (let option of dropdown.options) {
                     if (option.value === currentFile) {
@@ -1274,7 +1263,9 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", setCurrentModel);
+        document.addEventListener('DOMContentLoaded', setCurrentModel);
     </script>
+
+    </div>
 </body>
 </html>

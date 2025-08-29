@@ -3,24 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>k-ε Turbulence Model - Technical Guide</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">        
-
-        </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>
-        
-    </script>
-    
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
-        };
-    </script>
-    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>SAS Model - Scale-Adaptive Simulation - Technical Guide</title>
     <style>
         * {
             margin: 0;
@@ -536,6 +522,12 @@
             }
 }
     </style>
+    
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -565,11 +557,12 @@
             </div>
         </div>
 
-        <div class="main-content">
+    <div class="container">
+
             <!-- Page Header -->
             <div class="page-header">
-                <h1>k-ε Turbulence Model</h1>
-                <p class="model-subtitle">Two-equation RANS model for general-purpose turbulent flow simulation</p>
+                <h1>k-ω SST Model</h1>
+                <p class="model-subtitle">Industry standard combining accuracy with reliability</p>
             </div>
 
             <!-- Content Tabs -->
@@ -587,124 +580,121 @@
                         <h3>1. Model Overview</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Two-equation RANS model</strong> solving for turbulent kinetic energy (k) and dissipation rate (ε).</span>
+                                <span class="guide-text"><strong>Scale-Adaptive Simulation (SAS)</strong> bridging RANS and LES through automatic scale switching.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Industry standard</strong> for general-purpose turbulent flow simulations with robust convergence.</span>
+                                <span class="guide-text"><strong>Hybrid approach</strong> that adapts between RANS mode for attached flows and LES mode for separated regions.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Wall function approach</strong> suitable for moderate Reynolds number flows in complex geometries.</span>
+                                <span class="guide-text"><strong>von Kármán length scale</strong> modification enabling transition to turbulence-resolving mode when appropriate.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Valid for <strong>fully developed turbulent flows</strong> with minimal adverse pressure gradients.</span>
+                                <span class="guide-text"><strong>Industrial efficiency</strong> providing LES-like accuracy in critical regions while maintaining RANS economy elsewhere.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Key Strengths -->
-                    <div class="guide-section guide-strengths">
-                        <h3>2. Key Strengths</h3>
+                    <!-- Key Advantages -->
+                    <div class="guide-section guide-advantages">
+                        <h3>2. Key Advantages</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Computational efficiency:</strong> Lowest cost among two-equation models, <strong>40-50% faster than SST</strong>.</span>
+                                <span class="guide-text"><strong>Automatic switching:</strong> <strong>No user intervention</strong> required for RANS-LES transition in flow regions.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Robust convergence:</strong> Stable and reliable across <strong>wide range of flow conditions</strong>.</span>
+                                <span class="guide-text"><strong>Scale resolution:</strong> Resolves <strong>unsteady large-scale structures</strong> in separated and swirling flows.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Universal availability:</strong> Implemented in <strong>every commercial CFD solver</strong> with consistent formulation.</span>
+                                <span class="guide-text"><strong>Computational efficiency:</strong> <strong>More economical than pure LES</strong> while capturing critical unsteady physics.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Extensive validation:</strong> <strong>50+ years</strong> of validation data across diverse industrial applications.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Mesh flexibility:</strong> Works with <strong>coarser meshes</strong> due to wall function approach.</span>
+                                <span class="guide-text"><strong>Industrial applicability:</strong> <strong>Practical for complex geometries</strong> without interface definition requirements.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Limitations -->
-                    <div class="guide-section guide-limitations">
-                        <h3>3. Limitations</h3>
+                    <!-- Performance Characteristics -->
+                    <div class="guide-section guide-performance">
+                        <h3>3. Performance Characteristics</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Wall treatment limitation:</strong> <strong>Cannot integrate to wall</strong>, requires empirical wall functions.</span>
+                                <span class="guide-text"><strong>Accuracy:</strong> <strong>Superior to RANS for unsteady flows</strong> while maintaining computational feasibility.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Separation issues:</strong> <strong>Over-predicts attached flow</strong>, <strong>under-predicts separation</strong>.</span>
+                                <span class="guide-text"><strong>Computational cost:</strong> <strong>2-5x more expensive than RANS</strong>, significantly cheaper than LES.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Swirl and rotation:</strong> Poor performance in <strong>strongly swirling or rotating flows</strong>.</span>
+                                <span class="guide-text"><strong>Time dependency:</strong> <strong>Inherently unsteady</strong> requiring transient simulation approach.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Transitional flows:</strong> <strong>Not suitable for laminar-turbulent transition</strong> regions.</span>
+                                <span class="guide-text"><strong>Mesh requirements:</strong> <strong>Intermediate between RANS and LES</strong> with focus on separation regions.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Ideal Applications -->
-                    <div class="guide-section guide-use-cases">
-                        <h3>4. Ideal Applications</h3>
+                    <!-- Industry Applications -->
+                    <div class="guide-section guide-applications">
+                        <h3>4. Industry Applications</h3>
                         
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Simple Internal Flows:</span> Straight ducts, pipes, channels with fully developed turbulence</span>
+                            <span class="guide-text"><span class="guide-emphasis">Automotive:</span> External aerodynamics, wake analysis, drag and noise prediction</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Heat Exchangers:</span> Shell-and-tube, plate heat exchangers with established flow patterns</span>
+                            <span class="guide-text"><span class="guide-emphasis">Aerospace:</span> Aircraft wake vortices, buffeting analysis, control surface effectiveness</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Preliminary Design:</span> Early-stage analysis where speed is more important than precision</span>
+                            <span class="guide-text"><span class="guide-emphasis">Turbomachinery:</span> Unsteady blade interactions, secondary flow analysis, loss mechanisms</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Large Domains:</span> External flows around buildings, urban environments</span>
+                            <span class="guide-text"><span class="guide-emphasis">Industrial Mixing:</span> Complex mixing processes, heat and mass transfer enhancement</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">High Re Flows:</span> Fully turbulent flows with minimal separation or adverse gradients</span>
+                            <span class="guide-text"><span class="guide-emphasis">Wind Engineering:</span> Bluff body flows, wind loading on structures, urban aerodynamics</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Educational Use:</span> Teaching fundamental turbulence modeling concepts</span>
+                            <span class="guide-text"><span class="guide-emphasis">Energy Systems:</span> Heat exchanger performance, thermal mixing, combustion applications</span>
                         </div>
                     </div>
 
-                    <!-- When to Choose k-ε Over Other Models -->
+                    <!-- When to Choose SAS Over Other Models -->
                     <div class="guide-section guide-choice">
-                        <h3>5. When to Choose k-ε Over Other Models</h3>
+                        <h3>5. When to Choose SAS Over Other Models</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Computational budget constraints:</strong> When computational speed is prioritized over accuracy.</span>
+                                <span class="guide-text"><strong>Unsteady separation:</strong> When <strong>large-scale unsteady structures</strong> are critical to the physics.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Large-scale simulations:</strong> Extensive domains where fine mesh resolution is impractical.</span>
+                                <span class="guide-text"><strong>RANS limitations:</strong> Where steady RANS models <strong>fail to capture essential flow features</strong>.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Preliminary studies:</strong> Initial design iterations and parametric studies.</span>
+                                <span class="guide-text"><strong>LES constraints:</strong> When <strong>LES is too expensive</strong> but unsteady physics is important.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Simple geometries:</strong> Straight ducts, pipes, and channels without complex flow features.</span>
+                                <span class="guide-text"><strong>Mixed flow regimes:</strong> Flows with both <strong>attached and separated regions</strong> requiring different approaches.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Legacy compatibility:</strong> When consistency with historical simulation data is required.</span>
+                                <span class="guide-text"><strong>Industrial complexity:</strong> Complex geometries where <strong>automatic adaptation</strong> is preferred over manual interface definition.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- When NOT to Use k-ε -->
+                    <!-- When NOT to Use SAS -->
                     <div class="guide-section guide-avoid">
-                        <h3>6. When NOT to Use k-ε</h3>
+                        <h3>6. When NOT to Use SAS</h3>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Separation-prone flows:</span> Airfoils at high angles, diffusers, backward-facing steps</span>
+                            <span class="guide-text"><span class="guide-emphasis">Steady attached flows:</span> Simple attached flows where RANS provides adequate accuracy</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Near-wall accuracy critical:</span> Heat transfer, wall shear stress predictions</span>
+                            <span class="guide-text"><span class="guide-emphasis">Tight computational budgets:</span> When the 2-5x cost increase over RANS is prohibitive</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Swirling flows:</span> Cyclones, swirl combustors, rotating machinery</span>
+                            <span class="guide-text"><span class="guide-emphasis">High-frequency phenomena:</span> When very small-scale turbulence resolution is critical</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Low Reynolds numbers:</span> Transitional flows, laminar-turbulent transition</span>
+                            <span class="guide-text"><span class="guide-emphasis">Steady-state requirements:</span> Applications requiring only time-averaged flow properties</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">High accuracy requirements:</span> When precision is more important than speed</span>
+                            <span class="guide-text"><span class="guide-emphasis">Wall-bounded flows:</span> Simple channel or pipe flows without significant separation</span>
                         </div>
                     </div>
 
@@ -715,115 +705,101 @@
                         <h4>Mesh Requirements:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>y⁺ > 30:</strong> Essential for wall functions, target <strong>y⁺ = 50-200</strong> for optimal performance.</span>
+                                <span class="guide-text"><strong>Near-wall resolution:</strong> y⁺ < 1 preferred for accurate boundary layer resolution</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Coarse near-wall mesh:</strong> No need for fine boundary layer resolution, reduces computational cost.</span>
+                                <span class="guide-text"><strong>Separation region refinement:</strong> Higher density in expected unsteady separation zones</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Growth ratio:</strong> <strong>< 1.3</strong> in core flow, can be relaxed near walls due to wall functions.</span>
+                                <span class="guide-text"><strong>Streamwise resolution:</strong> Adequate to capture developing unsteady structures</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Domain size:</strong> Ensure adequate development length for fully turbulent flow establishment.</span>
+                                <span class="guide-text"><strong>Time step:</strong> CFL < 1 for accurate unsteady resolution</span>
                             </li>
                         </ul>
                         
                         <h4>Solver Settings:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Discretization:</strong> <strong>First-order upwind</strong> often sufficient, second-order for higher accuracy.</span>
+                                <span class="guide-text"><strong>Time integration:</strong> Second-order implicit schemes for temporal accuracy</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence:</strong> Residuals <strong>< 10⁻⁴</strong> typically adequate for engineering accuracy.</span>
+                                <span class="guide-text"><strong>Spatial discretization:</strong> Low-dissipation schemes to preserve unsteady content</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Under-relaxation:</strong> k: <strong>0.8</strong>, ε: <strong>0.8</strong>, robust default values.</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>Boundary Conditions:</h4>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Inlet turbulence:</strong> Specify <strong>turbulence intensity</strong> and <strong>length scale</strong> based on upstream conditions.</span>
+                                <span class="guide-text"><strong>Initialization:</strong> Start from converged RANS solution when available</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Wall treatment:</strong> Use standard wall functions, ensure y⁺ > 30 at first cell center.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Outlet conditions:</strong> Zero gradient for k and ε, avoid backflow for stable solution.</span>
+                                <span class="guide-text"><strong>Convergence:</strong> Monitor unsteady statistics for flow development</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Performance Expectations -->
-                    <div class="guide-section guide-performance">
-                        <h3>8. Performance Expectations</h3>
+                    <!-- Performance Optimization -->
+                    <div class="guide-section guide-optimization">
+                        <h3>8. Performance Optimization</h3>
                         
-                        <h4>Accuracy Levels:</h4>
+                        <h4>Computational Strategy:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Attached flows:</strong> <strong>±10-15%</strong> accuracy for pressure drop and bulk flow properties.</span>
+                                <span class="guide-text"><strong>RANS initialization:</strong> Use converged RANS as starting point for faster development</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Heat transfer:</strong> <strong>±15-25%</strong> for wall heat transfer coefficients in simple geometries.</span>
+                                <span class="guide-text"><strong>Adaptive time stepping:</strong> Optimize time step for CFL and accuracy requirements</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Mixing flows:</strong> <strong>±20-30%</strong> for jet mixing and free shear layer predictions.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Separation flows:</strong> <strong>Poor prediction</strong> - typically under-predicts separation extent.</span>
+                                <span class="guide-text"><strong>Parallel efficiency:</strong> Good scaling characteristics for domain decomposition</span>
                             </li>
                         </ul>
                         
-                        <h4>Computational Performance:</h4>
+                        <h4>Result Analysis:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Speed advantage:</strong> <strong>40-50% faster</strong> than SST, 70% faster than RSM.</span>
+                                <span class="guide-text"><strong>Statistical convergence:</strong> Ensure adequate sampling time for mean and RMS quantities</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Memory usage:</strong> <strong>Lowest memory footprint</strong> among turbulence models.</span>
+                                <span class="guide-text"><strong>Scale switching:</strong> Verify appropriate RANS-LES transitions in flow regions</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence:</strong> <strong>Excellent stability</strong> and robust convergence characteristics.</span>
+                                <span class="guide-text"><strong>Unsteady validation:</strong> Compare unsteady signatures with experimental data</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Common Pitfalls and Solutions -->
-                    <div class="guide-section guide-pitfalls">
-                        <h3>9. Common Pitfalls and Solutions</h3>
+                    <!-- Troubleshooting -->
+                    <div class="guide-section guide-limitations">
+                        <h3>9. Common Issues and Solutions</h3>
                         
-                        <h4>Physical Modeling Errors:</h4>
+                        <h4>Scale Switching Problems:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Using laminar for Re > 2300</strong> in pipes. <strong>Solution:</strong> Check Reynolds number, switch to turbulent model.</span>
+                                <span class="guide-text"><strong>Problem:</strong> Model not switching to LES mode in separated regions</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Ignoring transition effects</strong>. <strong>Solution:</strong> Consider transitional models for borderline Re numbers.</span>
+                                <span class="guide-text"><strong>Solution:</strong> Check mesh resolution and von Kármán length scale implementation</span>
                             </li>
                         </ul>
                         
-                        <h4>Numerical Issues:</h4>
+                        <h4>Convergence Difficulties:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Insufficient mesh resolution</strong> for velocity gradients. <strong>Solution:</strong> Refine mesh in high-gradient regions.</span>
+                                <span class="guide-text"><strong>Problem:</strong> Excessive computational time for flow development</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Slow convergence</strong> with high aspect ratio cells. <strong>Solution:</strong> Use coupled solver, improve mesh orthogonality.</span>
+                                <span class="guide-text"><strong>Solution:</strong> Use RANS initialization and optimize time step selection</span>
                             </li>
                         </ul>
                         
-                        <h4>Boundary Condition Errors:</h4>
+                        <h4>Numerical Stability:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Incorrect inlet velocity profile</strong>. <strong>Solution:</strong> Use developed profile for internal flows, uniform for external flows.</span>
+                                <span class="guide-text"><strong>Problem:</strong> Solution divergence in high Reynolds number flows</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Problem:</strong> <strong>Outlet boundary affecting solution</strong>. <strong>Solution:</strong> Extend domain downstream, use outflow boundary conditions.</span>
+                                <span class="guide-text"><strong>Solution:</strong> Reduce time step, improve mesh quality, check boundary conditions</span>
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
 
@@ -834,47 +810,59 @@
                     <!-- Historical Context and Development -->
                     <div class="guide-section" style="background: #f0f4f8; border-left: 4px solid #8b5cf6;">
                         <h3>Historical Context and Development</h3>
-                        <p class="guide-text">The k-ε turbulence model represents the first complete two-equation turbulence closure, developed by Launder and Spalding in 1974, building upon the pioneering work of Kolmogorov (1942) and Prandtl's mixing length theory.</p>
+                        <p class="guide-text">The Scale-Adaptive Simulation (SAS) model was developed by Menter and Egorov (2005, 2010) as an advanced hybrid RANS-LES approach that automatically adapts the level of turbulence resolution based on local flow characteristics. Unlike traditional hybrid methods requiring interface definitions, SAS provides seamless transition between RANS and LES modes.</p>
                         
-                        <h4>Timeline and Evolution</h4>
-                        <p class="guide-text">The development of the k-ε model marked a watershed moment in computational fluid dynamics. In 1972, Launder and Spalding began systematic development of a transport equation for the dissipation rate ε, complementing the well-established turbulent kinetic energy equation. The breakthrough came in 1974 with the publication of their seminal paper introducing the standard k-ε model.</p>
+                        <h4>Theoretical Foundation</h4>
+                        <p class="guide-text">The SAS concept emerged from recognizing limitations in both pure RANS and LES approaches for industrial applications. While RANS models excel in attached boundary layers but struggle with separated flows, LES provides excellent unsteady resolution but at prohibitive computational cost for entire industrial configurations.</p>
                         
-                        <p class="guide-text">Subsequent decades saw numerous refinements including the RNG k-ε variant (Yakhot and Orszag, 1986) incorporating renormalization group theory, the realizable k-ε model (Shih et al., 1995) ensuring mathematical realizability, and various low-Reynolds number variants for near-wall treatment. The model's widespread adoption was facilitated by its implementation in early commercial CFD codes during the 1980s.</p>
+                        <p class="guide-text">The breakthrough innovation involves modifying the turbulence model's dissipation based on the von Kármán length scale, allowing the model to automatically detect when the mesh is fine enough to resolve unsteady turbulent structures and switch to a scale-resolving mode.</p>
+                        
+                        <p class="guide-text">Recent developments have enhanced the SAS formulation for specific applications including combustion, multiphase flows, and rotating machinery, establishing it as a practical hybrid approach for complex engineering problems.</p>
                     </div>
 
                     <!-- Mathematical Foundation -->
                     <div class="guide-section guide-overview">
-                        <h3>Mathematical Foundation and Complete Derivation</h3>
-                        <p class="guide-text">The k-ε model employs the Boussinesq eddy viscosity hypothesis, relating Reynolds stresses to mean strain rate through a turbulent viscosity. This approach provides closure for the Reynolds-averaged Navier-Stokes equations through two additional transport equations.</p>
+                        <h3>Mathematical Foundation and Model Formulation</h3>
+                        <p class="guide-text">The SAS model is based on the k-ω SST framework with an additional source term that enables scale-adaptive behavior through dynamic modification of the turbulent dissipation rate.</p>
                         
-                        <h4>Turbulent Kinetic Energy Transport Equation:</h4>
+                        <h4>Base k-ω SST Equations with SAS Source:</h4>
                         <div class="equation-block">
-                            $$\frac{\partial(\rho k)}{\partial t} + \frac{\partial(\rho k u_i)}{\partial x_i} = \frac{\partial}{\partial x_j}\left[\left(\mu + \frac{\mu_t}{\sigma_k}\right) \frac{\partial k}{\partial x_j}\right] + P_k - \rho \varepsilon$$
+                            $$\frac{\partial k}{\partial t} + U_j \frac{\partial k}{\partial x_j} = P_k - \beta^* k \omega + \frac{\partial}{\partial x_j}\left[\left(\nu + \sigma_k \nu_T\right) \frac{\partial k}{\partial x_j}\right]$$
                         </div>
                         
-                        <h4>Dissipation Rate Transport Equation:</h4>
                         <div class="equation-block">
-                            $$\frac{\partial(\rho \varepsilon)}{\partial t} + \frac{\partial(\rho \varepsilon u_i)}{\partial x_i} = \frac{\partial}{\partial x_j}\left[\left(\mu + \frac{\mu_t}{\sigma_\varepsilon}\right) \frac{\partial \varepsilon}{\partial x_j}\right] + C_{1\varepsilon}\frac{\varepsilon}{k}P_k - C_{2\varepsilon}\rho\frac{\varepsilon^2}{k}$$
+                            $$\frac{\partial \omega}{\partial t} + U_j \frac{\partial \omega}{\partial x_j} = \alpha \frac{\omega}{k} P_k - \beta \omega^2 + Q_{SAS} + \frac{\partial}{\partial x_j}\left[\left(\nu + \sigma_\omega \nu_T\right) \frac{\partial \omega}{\partial x_j}\right]$$
                         </div>
                         
-                        <h4>Turbulent Viscosity Definition:</h4>
+                        <h4>SAS Source Term:</h4>
                         <div class="equation-block">
-                            $$\mu_t = \rho C_\mu \frac{k^2}{\varepsilon}$$
+                            $$Q_{SAS} = \max\left[0, \zeta_2 \kappa S^2 \left(\frac{L}{L_{vK}}\right)^2 - C_{SAS} \frac{2k}{\sigma_\Phi} \max\left(\frac{1}{\omega^2} \frac{\partial \omega}{\partial x_j} \frac{\partial \omega}{\partial x_j}, \frac{1}{k^2} \frac{\partial k}{\partial x_j} \frac{\partial k}{\partial x_j}\right)\right]$$
                         </div>
                         
-                        <h4>Production Term:</h4>
+                        <h4>von Kármán Length Scale:</h4>
                         <div class="equation-block">
-                            $$P_k = \mu_t \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) \frac{\partial u_i}{\partial x_j}$$
+                            $$L_{vK} = \kappa \frac{S}{\sqrt{0.5}\left|\frac{\partial^2 U_i}{\partial x_j \partial x_k}\right|}, \quad S = \sqrt{2S_{ij}S_{ij}}$$
+                        </div>
+                        
+                        <h4>Turbulent Length Scale:</h4>
+                        <div class="equation-block">
+                            $$L = \frac{\sqrt{k}}{\beta^{*1/4} \omega}$$
+                        </div>
+                        
+                        <h4>Scale-Adaptive Parameter:</h4>
+                        <div class="equation-block">
+                            $$\zeta_2 = 3.51, \quad C_{SAS} = 2.0, \quad \sigma_\Phi = 2/3$$
                         </div>
                         
                         <div class="term-definitions">
                             <h4>Variable Definitions:</h4>
-                            <div class="term-item"><strong>k:</strong> Turbulent kinetic energy (m²/s²)</div>
-                            <div class="term-item"><strong>ε:</strong> Turbulent dissipation rate (m²/s³)</div>
-                            <div class="term-item"><strong>μₜ:</strong> Turbulent viscosity (kg/(m·s))</div>
-                            <div class="term-item"><strong>Pₖ:</strong> Production of turbulent kinetic energy (kg/(m·s³))</div>
-                            <div class="term-item"><strong>ρ:</strong> Fluid density (kg/m³)</div>
-                            <div class="term-item"><strong>uᵢ:</strong> Reynolds-averaged velocity components (m/s)</div>
+                            <div class="term-item"><strong>Q_SAS:</strong> SAS source term (1/s³)</div>
+                            <div class="term-item"><strong>L:</strong> Turbulent length scale (m)</div>
+                            <div class="term-item"><strong>L_vK:</strong> von Kármán length scale (m)</div>
+                            <div class="term-item"><strong>S:</strong> Strain rate magnitude (1/s)</div>
+                            <div class="term-item"><strong>κ:</strong> Kármán constant (≈ 0.41)</div>
+                            <div class="term-item"><strong>ζ₂:</strong> SAS model constant</div>
+                            <div class="term-item"><strong>C_SAS:</strong> SAS limiter constant</div>
                         </div>
                         
                         <div class="constants-table">
@@ -888,176 +876,163 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Cμ</td>
+                                        <td>ζ₂</td>
+                                        <td>3.51</td>
+                                        <td>SAS production coefficient</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C_SAS</td>
+                                        <td>2.0</td>
+                                        <td>SAS limiter coefficient</td>
+                                    </tr>
+                                    <tr>
+                                        <td>σ_Φ</td>
+                                        <td>2/3</td>
+                                        <td>SAS diffusion coefficient</td>
+                                    </tr>
+                                    <tr>
+                                        <td>κ</td>
+                                        <td>0.41</td>
+                                        <td>von Kármán constant</td>
+                                    </tr>
+                                    <tr>
+                                        <td>β*</td>
                                         <td>0.09</td>
-                                        <td>Turbulent viscosity coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C₁ε</td>
-                                        <td>1.44</td>
-                                        <td>Dissipation production coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C₂ε</td>
-                                        <td>1.92</td>
-                                        <td>Dissipation destruction coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>σₖ</td>
-                                        <td>1.0</td>
-                                        <td>Turbulent Prandtl number for k</td>
-                                    </tr>
-                                    <tr>
-                                        <td>σε</td>
-                                        <td>1.3</td>
-                                        <td>Turbulent Prandtl number for ε</td>
+                                        <td>k destruction coefficient</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <!-- Physical Interpretation -->
+                    <!-- Scale-Adaptive Mechanism -->
                     <div class="guide-section">
-                        <h3>Physical Interpretation and Turbulence Physics</h3>
-                        <p class="guide-text">The k-ε model embodies fundamental principles of turbulent flow physics through its representation of the energy cascade process, from large-scale turbulent motions to molecular dissipation at the Kolmogorov scale.</p>
+                        <h3>Scale-Adaptive Mechanism and Physics</h3>
+                        <p class="guide-text">The SAS model operates by comparing the turbulent length scale L with the von Kármán length scale L_vK. When the mesh is fine enough to resolve unsteady structures (L > L_vK), the SAS source term activates, reducing the turbulent viscosity and allowing the flow to develop LES-like behavior.</p>
                         
-                        <h4>Energy Cascade Representation</h4>
-                        <p class="guide-text">The turbulent kinetic energy equation captures the balance between production (from mean flow deformation), convection, diffusion, and dissipation. The production term Pₖ represents the extraction of energy from the mean flow through Reynolds stresses acting on mean strain rates, embodying the fundamental mechanism of turbulent energy generation.</p>
+                        <h4>RANS Mode Operation</h4>
+                        <p class="guide-text">In attached boundary layers and regions where the mesh is too coarse for scale resolution, the ratio L/L_vK remains small, the SAS source term is inactive, and the model operates in standard k-ω SST mode, providing efficient RANS-like behavior with high turbulent viscosity damping unsteady fluctuations.</p>
                         
-                        <h4>Dissipation Rate Physics</h4>
-                        <p class="guide-text">The dissipation rate ε represents the rate at which turbulent kinetic energy is converted to internal energy through viscous action at the smallest scales. The ε-equation is largely phenomenological, with the C₁ε term representing production of dissipation proportional to the production of turbulent kinetic energy, while C₂ε represents the self-destruction of dissipation.</p>
+                        <h4>LES Mode Transition</h4>
+                        <p class="guide-text">When separation occurs or in regions with adequate mesh resolution, velocity gradients increase significantly, reducing L_vK. As L/L_vK increases beyond the threshold, Q_SAS becomes positive, increasing ω and reducing turbulent viscosity, allowing natural unsteady turbulent structures to develop.</p>
                         
-                        <h4>Turbulent Viscosity Concept</h4>
-                        <p class="guide-text">The Boussinesq hypothesis underlying the k-ε model assumes that Reynolds stresses are proportional to mean strain rates through a turbulent viscosity μₜ. This scalar viscosity approximation, while computationally efficient, inherently assumes isotropic turbulence and fails in flows with strong streamline curvature or system rotation.</p>
+                        <h4>von Kármán Length Scale Physics</h4>
+                        <p class="guide-text">The von Kármán length scale represents the size of the largest turbulent eddies that can be sustained by the local velocity field. It is computed from the strain rate and second derivatives of velocity, making it sensitive to flow curvature and separation, exactly where scale-resolving capabilities are most beneficial.</p>
                         
-                        <h4>Length and Time Scale Relationships</h4>
-                        <p class="guide-text">The k-ε model implicitly defines turbulent length and time scales through the relationships:</p>
-                        
-                        <div class="equation-block">
-                            $$l_t = C_\mu^{3/4} \frac{k^{3/2}}{\varepsilon}, \quad \tau_t = \frac{k}{\varepsilon}$$
-                        </div>
-                        
-                        <p class="guide-text">These scales characterize the size and lifetime of energy-containing turbulent eddies, providing the foundation for the turbulent viscosity formulation.</p>
+                        <h4>Automatic Adaptation Criteria</h4>
+                        <p class="guide-text">The transition between RANS and LES modes is governed by local flow physics rather than geometric criteria. This enables the model to automatically activate scale resolution in separated regions, wake flows, and areas of high unsteadiness while maintaining RANS efficiency in attached boundary layers.</p>
                     </div>
 
-                    <!-- Model Assumptions and Limitations -->
+                    <!-- Model Validation and Applications -->
                     <div class="guide-section">
-                        <h3>Model Assumptions and Theoretical Limitations</h3>
-                        <p class="guide-text">The k-ε model incorporates several fundamental assumptions that define its range of applicability and inherent limitations in representing complex turbulent flows.</p>
-                        
-                        <h4>Boussinesq Eddy Viscosity Assumption</h4>
-                        <p class="guide-text">The central assumption of isotropic turbulent viscosity fails in flows with:</p>
-                        
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Strong streamline curvature and system rotation</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Significant buoyancy effects and stratification</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Three-dimensional separation and corner flows</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Flows with significant Reynolds stress anisotropy</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>High Reynolds Number Assumption</h4>
-                        <p class="guide-text">The standard k-ε formulation assumes fully developed turbulence, making it inappropriate for:</p>
-                        
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Transitional flows and laminar-turbulent transition</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Near-wall regions requiring viscous sublayer resolution</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Low Reynolds number applications</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>Gradient Diffusion Hypothesis</h4>
-                        <p class="guide-text">The assumption that turbulent transport is proportional to mean gradients becomes questionable in complex flows with strong pressure gradients, recirculation, or separation.</p>
-                    </div>
-
-                    <!-- Validation and Performance Database -->
-                    <div class="guide-section">
-                        <h3>Model Validation and Performance Database</h3>
-                        <p class="guide-text">The k-ε model has been extensively validated against experimental data across a wide range of flow configurations, establishing its strengths and limitations for engineering applications.</p>
-                        
-                        <h4>Successful Applications</h4>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Fully developed channel and pipe flows with excellent agreement</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Free jets and mixing layers with reasonable accuracy</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Simple heat exchanger geometries and internal flows</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Large-scale atmospheric and environmental flows</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>Known Deficiencies</h4>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Over-prediction of spreading rates in round jets</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Under-prediction of separation in adverse pressure gradients</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Poor performance in swirling and rotating flows</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Inadequate near-wall heat transfer prediction</span>
-                            </li>
-                        </ul>
+                        <h3>Model Validation and Performance Assessment</h3>
+                        <p class="guide-text">The SAS model has been extensively validated across a range of separated flow configurations, demonstrating superior performance compared to steady RANS while maintaining computational efficiency relative to LES.</p>
                         
                         <h4>Benchmark Test Cases</h4>
-                        <p class="guide-text">Standard validation cases include the backward-facing step, flow over a flat plate, turbulent pipe flow, and the plane mixing layer. These cases provide quantitative measures of model performance across different flow physics.</p>
+                        <ul class="guide-list">
+                            <li class="guide-item">
+                                <span class="guide-text">Periodic hill flow at Re_H = 10,600 (scale-resolving validation)</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Backward-facing step with various expansion ratios</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Flow around circular cylinder at subcritical Reynolds numbers</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Ahmed body automotive configuration for wake prediction</span>
+                            </li>
+                        </ul>
+                        
+                        <h4>Industrial Applications</h4>
+                        <ul class="guide-list">
+                            <li class="guide-item">
+                                <span class="guide-text">External vehicle aerodynamics with wake analysis</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Turbomachinery unsteady blade interactions</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Heat exchanger thermal mixing enhancement</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Wind engineering and bluff body flows</span>
+                            </li>
+                        </ul>
+                        
+                        <h4>Performance Characteristics</h4>
+                        <p class="guide-text">SAS provides significant improvement over RANS in predicting separation location, reattachment length, and unsteady force coefficients. Computational cost typically ranges from 2-5 times steady RANS, depending on the extent of scale-resolving regions, making it more affordable than pure LES for engineering applications.</p>
+                        
+                        <h4>Limitations and Considerations</h4>
+                        <ul class="guide-list">
+                            <li class="guide-item">
+                                <span class="guide-text">Mesh quality requirements higher than RANS but lower than LES</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Time step restrictions for accurate unsteady resolution</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Statistical convergence requirements for unsteady quantities</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Potential for delayed transition to scale-resolving mode</span>
+                            </li>
+                        </ul>
                     </div>
 
-                    <!-- Modern Variants and Extensions -->
+                    <!-- Implementation and Numerical Considerations -->
                     <div class="guide-section">
-                        <h3>Modern Variants and Theoretical Extensions</h3>
-                        <p class="guide-text">Recognizing the limitations of the standard k-ε model, numerous variants have been developed to address specific deficiencies while maintaining computational efficiency.</p>
+                        <h3>Implementation and Numerical Considerations</h3>
+                        <p class="guide-text">Successful SAS implementation requires careful attention to mesh design, time integration, and spatial discretization to ensure proper activation of scale-resolving capabilities while maintaining numerical stability.</p>
                         
-                        <h4>RNG k-ε Model</h4>
-                        <p class="guide-text">The Renormalization Group k-ε model incorporates systematic removal of small-scale motions from the Navier-Stokes equations, resulting in modified model constants and an additional term in the ε-equation to improve performance in rapidly strained flows.</p>
+                        <h4>Mesh Design Strategy</h4>
+                        <p class="guide-text">The mesh should be designed with RANS-quality resolution in attached regions and enhanced resolution in areas where scale resolution is expected. This hybrid approach optimizes computational resources while ensuring adequate capturing of unsteady phenomena in critical flow regions.</p>
                         
-                        <h4>Realizable k-ε Model</h4>
-                        <p class="guide-text">This variant ensures mathematical realizability constraints are satisfied, preventing non-physical negative normal stresses. The realizable model employs a variable Cμ coefficient and modified ε-equation, improving performance in flows with strong streamline curvature.</p>
+                        <h4>Time Integration Requirements</h4>
+                        <p class="guide-text">Second-order implicit time integration is recommended with time steps chosen to maintain CFL numbers below unity in scale-resolving regions. The time step should resolve the characteristic frequencies of large-scale unsteady structures while maintaining stability in RANS regions.</p>
                         
-                        <h4>Enhanced Wall Treatment</h4>
-                        <p class="guide-text">Various near-wall modifications enable integration to the wall surface, combining the robustness of wall functions with the accuracy of low-Reynolds number formulations. These hybrid approaches automatically adjust based on local mesh resolution.</p>
+                        <h4>Spatial Discretization Considerations</h4>
+                        <p class="guide-text">Low-dissipation spatial schemes are crucial for preserving unsteady content in scale-resolving regions. Second-order upwind or higher-order schemes help maintain the balance between numerical stability and unsteady structure preservation.</p>
                         
-                        <h4>Nonlinear Eddy Viscosity Models</h4>
-                        <p class="guide-text">Extensions incorporating nonlinear stress-strain relationships partially address Reynolds stress anisotropy while retaining the two-equation framework. These models represent a compromise between computational efficiency and physical accuracy.</p>
+                        <h4>Initialization and Convergence</h4>
+                        <ul class="guide-list">
+                            <li class="guide-item">
+                                <span class="guide-text">Initialize from converged steady RANS solution when possible</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Allow sufficient flow development time for unsteady structures</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Monitor SAS source term activation in expected regions</span>
+                            </li>
+                            <li class="guide-item">
+                                <span class="guide-text">Verify statistical convergence of mean and fluctuating quantities</span>
+                            </li>
+                        </ul>
                     </div>
 
-                    <!-- Contemporary Research -->
+                    <!-- Advanced Topics and Future Developments -->
                     <div class="guide-section">
-                        <h3>Contemporary Research and Future Directions</h3>
-                        <p class="guide-text">While newer turbulence models have superseded k-ε for many applications, ongoing research continues to refine and extend its applicability, particularly in specialized domains and large-scale simulations.</p>
+                        <h3>Advanced Topics and Future Developments</h3>
+                        <p class="guide-text">Current research focuses on enhancing SAS performance for specific applications and developing improved formulations for challenging flow configurations.</p>
+                        
+                        <h4>Combustion Applications</h4>
+                        <p class="guide-text">SAS extensions for reacting flows incorporate modifications to handle density variations and chemical source terms, enabling application to combustion systems where large-scale mixing structures significantly influence reaction rates and emissions formation.</p>
+                        
+                        <h4>Multiphase Flow Enhancement</h4>
+                        <p class="guide-text">Developments for multiphase applications address interface dynamics and bubble/droplet interactions, where scale-resolving capabilities provide significant advantages over traditional RANS approaches for predicting mass transfer and mixing characteristics.</p>
                         
                         <h4>Machine Learning Integration</h4>
-                        <p class="guide-text">Recent developments incorporate machine learning techniques to improve model constants and functional forms based on high-fidelity simulation data. These data-driven approaches show promise for enhancing k-ε performance in specific application domains.</p>
+                        <p class="guide-text">Research explores machine learning-enhanced SAS formulations that adapt model constants based on local flow features, potentially improving automatic detection of regions requiring scale resolution and optimizing the RANS-LES transition process.</p>
                         
-                        <h4>Computational Efficiency Optimization</h4>
-                        <p class="guide-text">Modern implementations focus on GPU acceleration and massively parallel architectures, leveraging the k-ε model's computational simplicity for exascale computing applications in climate modeling and urban flow simulation.</p>
+                        <h4>Wall Function Developments</h4>
+                        <p class="guide-text">Advanced wall function formulations for SAS applications aim to reduce near-wall mesh requirements while maintaining accuracy in scale-resolving regions, extending the method's applicability to higher Reynolds number industrial flows.</p>
                         
-                        <h4>Uncertainty Quantification</h4>
-                        <p class="guide-text">Contemporary research addresses epistemic uncertainty in turbulence modeling through stochastic formulations and Bayesian approaches, providing probabilistic confidence bounds for k-ε predictions.</p>
+                        <h4>Anisotropic SAS Formulations</h4>
+                        <p class="guide-text">Next-generation SAS models incorporate anisotropic length scale detection, allowing different scale-resolving behavior in different spatial directions based on local flow physics, potentially improving performance in complex three-dimensional separated flows.</p>
                         
-                        <h4>Multiphase and Reacting Flow Extensions</h4>
-                        <p class="guide-text">Specialized variants continue development for complex multiphase flows, combustion applications, and heat transfer scenarios where the k-ε framework provides a robust foundation for additional physics modeling.</p>
+                        <h4>Industrial Implementation Advances</h4>
+                        <p class="guide-text">Production-level implementations focus on robustness enhancements, automatic mesh adaptation based on SAS activation patterns, and hybrid parallelization strategies that optimize computational efficiency for mixed RANS-LES domains in large-scale industrial applications.</p>
                     </div>
                 </div>
             </div>
@@ -1087,36 +1062,20 @@
     </script>
 
     <script>
-        }
-
-                }
-            }
-        }
-
-    </script>
-
-    <script>
         function navigateToModel(modelFile) {
             if (modelFile) {
-                console.log("Navigating to:", modelFile);
                 window.location.href = modelFile;
-            }
-        }
 
         function setCurrentModel() {
-            const currentFile = window.location.pathname.split("/").pop();
-            const dropdown = document.getElementById("modelSelect");
+            const currentFile = window.location.pathname.split('/').pop();
+            const dropdown = document.getElementById('modelSelect');
             if (dropdown) {
                 for (let option of dropdown.options) {
                     if (option.value === currentFile) {
                         option.selected = true;
                         break;
-                    }
-                }
-            }
-        }
 
-        document.addEventListener("DOMContentLoaded", setCurrentModel);
+        document.addEventListener('DOMContentLoaded', setCurrentModel);
     </script>
+
 </body>
-</html>
