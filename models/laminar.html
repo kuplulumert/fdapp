@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laminar Flow Model - CFD Handbook</title>
+    <title>Laminar Flow Model - Technical Guide</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">        
 
         </script>
@@ -37,16 +37,20 @@
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+            to { opacity: 1; transform: translateY(0); }
+        }
             min-height: 100vh;
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Header Navigation */
 
                 /* Premium Header Navigation */
         .header {
@@ -181,6 +185,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: #2d3748;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -200,6 +205,25 @@
 
         .logo:hover::after {
             width: 100%;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+            color: #718096;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
         
@@ -223,7 +247,6 @@
             opacity: 0.9;
             font-weight: 300;
         }        \
-
                 .content-tabs {
             display: flex;
             gap: 2.5rem;
@@ -237,46 +260,42 @@
         }
 
         .content-tab {
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            color: #4a5568;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        color: #4a5568;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 12px;
             white-space: nowrap;
-            border: none;
-            background: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
         }
-
         .content-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
         }
-
         .content-tab:hover::before,
         .content-tab.active::before {
-            opacity: 1;
+        opacity: 1;
         }
-
         .content-tab:hover,
         .content-tab.active {
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
         }
-
         .content-tab:first-child {
-            border-left: none;
+        border-left: none;
         }
 
         .tab-content {
@@ -533,8 +552,6 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
                 min-width: auto;
-            }
-}
     </style>
 </head>
 <body>
@@ -549,15 +566,15 @@
                         <select id="modelSelect" class="model-dropdown" onchange="navigateToModel(this.value)">
                             <option value="">Select Model...</option>
                             <option value="laminar.html">Laminar Flow</option>
-                            <option value="k-.html">k-epsilon (Standard)</option>
-                            <option value="k-.html">k-omega (Wilcox)</option>
-                            <option value="k--sst.html">k-omega SST</option>
+                            <option value="k-epsilon.html">k-ε (Standard)</option>
+                            <option value="k-omega.html">k-ω (Wilcox)</option>
+                            <option value="k-omega-sst.html">k-ω SST</option>
                             <option value="reynolds-stress.html">Reynolds Stress Model (RSM)</option>
                             <option value="spalart-allmaras.html">Spalart-Allmaras</option>
                             <option value="des.html">Detached Eddy Simulation (DES)</option>
                             <option value="les.html">Large Eddy Simulation (LES)</option>
                             <option value="sas.html">Scale-Adaptive Simulation (SAS)</option>
-                            <option value="k-kl-.html">k-kL-ω Transition</option>
+                            <option value="k-kl-omega.html">k-kL-ω Transition</option>
                             <option value="inviscid.html">Inviscid Flow</option>
                         </select>
                     </div>
@@ -569,7 +586,7 @@
             <!-- Page Header -->
             <div class="page-header">
                 <h1>Laminar Flow Model</h1>
-                <p class="model-subtitle">Pure fluid mechanics without turbulence modeling</p>
+                <p class="model-subtitle">Direct Navier-Stokes solution for viscous flows without turbulence</p>
             </div>
 
             <!-- Content Tabs -->
@@ -587,195 +604,38 @@
                         <h3>1. Model Overview</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Direct solution of Navier-Stokes equations</strong> without turbulence closure models.</span>
+                                <span class="guide-text"><strong>Direct Navier-Stokes solution</strong> without turbulence modeling or additional equations.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Viscous flow regime</strong> where molecular viscosity dominates momentum transport.</span>
+                                <span class="guide-text"><strong>Exact viscous flow representation</strong> capturing all molecular-level momentum transport.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Reynolds number dependent</strong> solution approach for well-defined flow conditions.</span>
+                                <span class="guide-text"><strong>Deterministic solution</strong> providing precise, reproducible results for smooth flows.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Computationally efficient</strong> for low Reynolds number applications.</span>
+                                <span class="guide-text">Valid for <strong>Reynolds numbers < 2300</strong> in internal flows and specific external configurations.</span>
                             </li>
                         </ul>
                     </div>
-
-                    <!-- Key Advantages -->
-                    <div class="guide-section guide-strengths">
-                        <h3>2. Key Advantages</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Exact solution:</strong> No modeling assumptions or empirical constants.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Deterministic results:</strong> Reproducible and mesh-independent solutions.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Lower computational cost:</strong> No additional transport equations to solve.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Stable convergence:</strong> Well-conditioned numerical problem.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Home Appliance Applications -->
-                    <div class="guide-section guide-applications">
-                        <h3>3. Home Appliance Applications</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Microfluidics:</strong> Small-scale mixing chambers and flow channels.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Low-speed flows:</strong> Natural convection in enclosed appliances.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Viscous-dominated regions:</strong> Near-wall flow in heat exchangers.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Startup conditions:</strong> Initial flow development in ducts and channels.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Performance Expectations -->
-                    <div class="guide-section guide-performance">
-                        <h3>4. Performance Expectations</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Accuracy:</strong> Exact for Re < 2000 in pipe flows.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Mesh requirements:</strong> Standard mesh density sufficient.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence:</strong> Rapid convergence in 50-200 iterations.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Stability:</strong> Unconditionally stable for appropriate Reynolds numbers.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Use Cases -->
-                    <div class="guide-section guide-usecases">
-                        <h3>5. Recommended Use Cases</h3>
-                        <div class="use-case-item">
-                            <h4>✓ Ideal For:</h4>
-                            <ul class="guide-list">
-                                <li class="guide-item"><span class="guide-text">Reynolds number < 2000</span></li>
-                                <li class="guide-item"><span class="guide-text">Creeping flows (Re << 1)</span></li>
-                                <li class="guide-item"><span class="guide-text">Highly viscous fluids</span></li>
-                                <li class="guide-item"><span class="guide-text">Smooth wall applications</span></li>
-                            </ul>
-                        </div>
-                        <div class="avoid-item">
-                            <h4>✗ Avoid For:</h4>
-                            <ul class="guide-list">
-                                <li class="guide-item"><span class="guide-text">Turbulent flows (Re > 4000)</span></li>
-                                <li class="guide-item"><span class="guide-text">Transitional flow regimes</span></li>
-                                <li class="guide-item"><span class="guide-text">High Reynolds number applications</span></li>
-                                <li class="guide-item"><span class="guide-text">Flows with significant mixing requirements</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Common Pitfalls -->
-                    <div class="guide-section guide-pitfalls">
-                        <h3>6. Common Pitfalls</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Reynolds number misjudgment:</strong> Using laminar model for transitional/turbulent flows.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Geometry assumptions:</strong> Ignoring surface roughness effects at higher Re.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Boundary condition sensitivity:</strong> Proper inlet velocity specifications.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Mesh adequacy:</strong> Insufficient resolution for viscous boundary layers.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Implementation Tips -->
-                    <div class="guide-section guide-implementation">
-                        <h3>7. Implementation Tips</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Mesh strategy:</strong> Uniform distribution with enhanced near-wall resolution.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Solver settings:</strong> Use pressure-based solver for incompressible flows.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence criteria:</strong> Tight residuals (1e-6) for accurate viscous solutions.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Validation approach:</strong> Compare with analytical solutions where available.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Industry Results -->
-                    <div class="guide-section guide-results">
-                        <h3>8. Typical Industry Results</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Heat transfer accuracy:</strong> Within 2-5% of experimental data for natural convection.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Pressure drop prediction:</strong> Exact match with analytical solutions in simple geometries.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Flow field resolution:</strong> Smooth velocity profiles without artificial mixing.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Computational efficiency:</strong> 50-80% faster than turbulent models.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Advanced Considerations -->
-                    <div class="guide-section guide-advanced">
-                        <h3>9. Advanced Considerations</h3>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Transition prediction:</strong> Monitor Reynolds number evolution throughout domain.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Stability analysis:</strong> Check for potential laminar-turbulent transition points.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Multi-phase considerations:</strong> Applicable to single-phase flows only.</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text"><strong>Compressibility effects:</strong> Valid for low Mach number applications.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
                     <!-- Key Strengths -->
                     <div class="guide-section guide-strengths">
                         <h3>2. Key Strengths</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Computational efficiency:</strong> Lowest cost among two-equation models, <strong>40-50% faster than SST</strong>.</span>
+                                <span class="guide-text"><strong>Highest accuracy:</strong> Exact solution without modeling assumptions or turbulence closure errors.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Robust convergence:</strong> Stable and reliable across <strong>wide range of flow conditions</strong>.</span>
+                                <span class="guide-text"><strong>Analytical validation:</strong> Many exact analytical solutions available for verification.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Universal availability:</strong> Implemented in <strong>every commercial CFD solver</strong> with consistent formulation.</span>
+                                <span class="guide-text"><strong>Mesh independence:</strong> No near-wall modeling constraints or y⁺ requirements.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Extensive validation:</strong> <strong>50+ years</strong> of validation data across diverse industrial applications.</span>
+                                <span class="guide-text"><strong>Computational efficiency:</strong> No additional transport equations, fastest CFD approach for valid cases.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Mesh flexibility:</strong> Works with <strong>coarser meshes</strong> due to wall function approach.</span>
+                                <span class="guide-text"><strong>Heat transfer precision:</strong> Exact prediction of wall heat transfer and temperature distributions.</span>
                             </li>
                         </ul>
                     </div>
@@ -785,16 +645,16 @@
                         <h3>3. Limitations</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Wall treatment limitation:</strong> <strong>Cannot integrate to wall</strong>, requires empirical wall functions.</span>
+                                <span class="guide-text"><strong>Reynolds number restriction:</strong> <strong>Limited to Re < 2300</strong> for internal flows, much lower for external flows.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Separation issues:</strong> <strong>Over-predicts attached flow</strong>, <strong>under-predicts separation</strong>.</span>
+                                <span class="guide-text"><strong>Flow regime limitation:</strong> <strong>Cannot predict transition to turbulence</strong> or handle turbulent flows.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Swirl and rotation:</strong> Poor performance in <strong>strongly swirling or rotating flows</strong>.</span>
+                                <span class="guide-text"><strong>Geometric constraints:</strong> Limited to <strong>smooth, well-designed geometries</strong> without sharp edges or sudden expansions.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Transitional flows:</strong> <strong>Not suitable for laminar-turbulent transition</strong> regions.</span>
+                                <span class="guide-text"><strong>Industrial applicability:</strong> <strong>Rarely applicable</strong> to real-world industrial flow systems.</span>
                             </li>
                         </ul>
                     </div>
@@ -804,64 +664,64 @@
                         <h3>4. Ideal Applications</h3>
                         
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Simple Internal Flows:</span> Straight ducts, pipes, channels with fully developed turbulence</span>
+                            <span class="guide-text"><span class="guide-emphasis">Microfluidics:</span> Lab-on-chip devices, medical diagnostics, precise fluid manipulation at micro-scale</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Heat Exchangers:</span> Shell-and-tube, plate heat exchangers with established flow patterns</span>
+                            <span class="guide-text"><span class="guide-emphasis">Heat Exchangers:</span> Smooth channel flows, plate heat exchangers, precise thermal analysis</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Preliminary Design:</span> Early-stage analysis where speed is more important than precision</span>
+                            <span class="guide-text"><span class="guide-emphasis">Lubrication Systems:</span> Bearing flows, thin film lubrication, viscous fluid motion</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Large Domains:</span> External flows around buildings, urban environments</span>
+                            <span class="guide-text"><span class="guide-emphasis">Coating Processes:</span> Thin film coating, paint application, precise surface coverage</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">High Re Flows:</span> Fully turbulent flows with minimal separation or adverse gradients</span>
+                            <span class="guide-text"><span class="guide-emphasis">Flow Meters:</span> Venturi meters, orifice plates, precise flow measurement devices</span>
                         </div>
                         <div class="use-case-item">
-                            <span class="guide-text"><span class="guide-emphasis">Educational Use:</span> Teaching fundamental turbulence modeling concepts</span>
+                            <span class="guide-text"><span class="guide-emphasis">Biomedical:</span> Blood flow in vessels, drug delivery systems, biofluid mechanics</span>
                         </div>
                     </div>
 
-                    <!-- When to Choose k-epsilon Over Other Models -->
+                    <!-- When to Choose Laminar Over Turbulent -->
                     <div class="guide-section guide-choice">
-                        <h3>5. When to Choose k-epsilon Over Other Models</h3>
+                        <h3>5. When to Choose Laminar Over Turbulent</h3>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Computational budget constraints:</strong> When computational speed is prioritized over accuracy.</span>
+                                <span class="guide-text"><strong>Low Reynolds numbers:</strong> Re < 2300 for internal flows, Re < 5×10⁵ for external flows.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Large-scale simulations:</strong> Extensive domains where fine mesh resolution is impractical.</span>
+                                <span class="guide-text"><strong>High viscosity fluids:</strong> Oils, polymers, viscous liquids with inherently stable flow.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Preliminary studies:</strong> Initial design iterations and parametric studies.</span>
+                                <span class="guide-text"><strong>Microfluidic devices:</strong> Small-scale flows where surface forces dominate inertial effects.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Simple geometries:</strong> Straight ducts, pipes, and channels without complex flow features.</span>
+                                <span class="guide-text"><strong>Smooth geometries:</strong> Well-designed channels, streamlined bodies without sharp edges.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Legacy compatibility:</strong> When consistency with historical simulation data is required.</span>
+                                <span class="guide-text"><strong>Verification studies:</strong> Benchmarking against analytical solutions for model validation.</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- When NOT to Use k-epsilon -->
+                    <!-- When NOT to Use Laminar -->
                     <div class="guide-section guide-avoid">
-                        <h3>6. When NOT to Use k-epsilon</h3>
+                        <h3>6. When NOT to Use Laminar</h3>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Separation-prone flows:</span> Airfoils at high angles, diffusers, backward-facing steps</span>
+                            <span class="guide-text"><span class="guide-emphasis">High Reynolds numbers:</span> Re > 2300 for pipes, Re > 5×10⁵ for flat plates - flow will be turbulent</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Near-wall accuracy critical:</span> Heat transfer, wall shear stress predictions</span>
+                            <span class="guide-text"><span class="guide-emphasis">Sharp edges:</span> Sudden expansions, contractions, or obstacles that trigger flow separation</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Swirling flows:</span> Cyclones, swirl combustors, rotating machinery</span>
+                            <span class="guide-text"><span class="guide-emphasis">High velocity flows:</span> Jets, high-speed flows where inertial forces dominate</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">Low Reynolds numbers:</span> Transitional flows, laminar-turbulent transition</span>
+                            <span class="guide-text"><span class="guide-emphasis">Industrial processes:</span> Most real-world applications operate in turbulent regime</span>
                         </div>
                         <div class="avoid-item">
-                            <span class="guide-text"><span class="guide-emphasis">High accuracy requirements:</span> When precision is more important than speed</span>
+                            <span class="guide-text"><span class="guide-emphasis">Mixed convection:</span> Natural and forced convection with instabilities and transition</span>
                         </div>
                     </div>
 
@@ -872,42 +732,42 @@
                         <h4>Mesh Requirements:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>y⁺ > 30:</strong> Essential for wall functions, target <strong>y⁺ = 50-200</strong> for optimal performance.</span>
+                                <span class="guide-text"><strong>No y⁺ constraints:</strong> No turbulent wall treatment requirements - any reasonable near-wall resolution works.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Coarse near-wall mesh:</strong> No need for fine boundary layer resolution, reduces computational cost.</span>
+                                <span class="guide-text"><strong>Smooth gradients:</strong> Focus on <strong>smooth mesh transitions</strong> and adequate resolution for velocity gradients.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Growth ratio:</strong> <strong>< 1.3</strong> in core flow, can be relaxed near walls due to wall functions.</span>
+                                <span class="guide-text"><strong>Growth ratio:</strong> <strong>< 1.3</strong> throughout domain, no special near-wall restrictions.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Domain size:</strong> Ensure adequate development length for fully turbulent flow establishment.</span>
+                                <span class="guide-text"><strong>Aspect ratio:</strong> <strong>< 100</strong> recommended for good numerical accuracy.</span>
                             </li>
                         </ul>
                         
                         <h4>Solver Settings:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Discretization:</strong> <strong>First-order upwind</strong> often sufficient, second-order for higher accuracy.</span>
+                                <span class="guide-text"><strong>Discretization:</strong> <strong>Second-order</strong> or higher for momentum, first-order adequate for simple cases.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence:</strong> Residuals <strong>< 10⁻⁴</strong> typically adequate for engineering accuracy.</span>
+                                <span class="guide-text"><strong>Convergence:</strong> Residuals <strong>< 10⁻⁶</strong> for momentum, monitor wall forces and flow rates.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Under-relaxation:</strong> k: <strong>0.8</strong>, ε: <strong>0.8</strong>, robust default values.</span>
+                                <span class="guide-text"><strong>Under-relaxation:</strong> Momentum: <strong>0.7</strong>, Pressure: <strong>0.3</strong>, conservative values for stability.</span>
                             </li>
                         </ul>
                         
-                        <h4>Boundary Conditions:</h4>
+                        <h4>Verification Steps:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Inlet turbulence:</strong> Specify <strong>turbulence intensity</strong> and <strong>length scale</strong> based on upstream conditions.</span>
+                                <span class="guide-text"><strong>Analytical comparison:</strong> Compare with Poiseuille flow, Couette flow, or Blasius solutions where applicable.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Wall treatment:</strong> Use standard wall functions, ensure y⁺ > 30 at first cell center.</span>
+                                <span class="guide-text"><strong>Mesh independence:</strong> Verify solution doesn't change with further mesh refinement.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Outlet conditions:</strong> Zero gradient for k and ε, avoid backflow for stable solution.</span>
+                                <span class="guide-text"><strong>Mass conservation:</strong> Check inlet/outlet mass balance to machine precision.</span>
                             </li>
                         </ul>
                     </div>
@@ -919,29 +779,29 @@
                         <h4>Accuracy Levels:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Attached flows:</strong> <strong>±10-15%</strong> accuracy for pressure drop and bulk flow properties.</span>
+                                <span class="guide-text"><strong>Exact solutions:</strong> <strong>Machine precision</strong> accuracy for analytical cases (Poiseuille, Couette flows).</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Heat transfer:</strong> <strong>±15-25%</strong> for wall heat transfer coefficients in simple geometries.</span>
+                                <span class="guide-text"><strong>Heat transfer:</strong> <strong>±1-2%</strong> for well-resolved laminar flows with proper boundary conditions.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Mixing flows:</strong> <strong>±20-30%</strong> for jet mixing and free shear layer predictions.</span>
+                                <span class="guide-text"><strong>Pressure drop:</strong> <strong>±2-3%</strong> for smooth geometries within valid Reynolds number range.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Separation flows:</strong> <strong>Poor prediction</strong> - typically under-predicts separation extent.</span>
+                                <span class="guide-text"><strong>Wall shear stress:</strong> <strong>±1-3%</strong> accuracy limited primarily by mesh resolution.</span>
                             </li>
                         </ul>
                         
-                        <h4>Computational Performance:</h4>
+                        <h4>Computational Advantages:</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Speed advantage:</strong> <strong>40-50% faster</strong> than SST, 70% faster than RSM.</span>
+                                <span class="guide-text"><strong>vs turbulence models:</strong> <strong>50-70% faster</strong> solution time, no additional transport equations.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Memory usage:</strong> <strong>Lowest memory footprint</strong> among turbulence models.</span>
+                                <span class="guide-text"><strong>Memory:</strong> <strong>Minimal memory footprint</strong> - only momentum and continuity equations.</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text"><strong>Convergence:</strong> <strong>Excellent stability</strong> and robust convergence characteristics.</span>
+                                <span class="guide-text"><strong>ROI:</strong> <strong>Highest accuracy per computational cost</strong> within valid flow regime.</span>
                             </li>
                         </ul>
                     </div>
@@ -985,312 +845,173 @@
             </div>
 
             <!-- Academy Guide Tab Content -->
-        <div id="academy" class="tab-content">
-            <div class="academy-guide">
-                <div class="guide-section">
-                    <h3>Fundamental Principles</h3>
-                    <p class="guide-text">Laminar flow represents the fundamental state of fluid motion where viscous forces dominate inertial forces, resulting in smooth, predictable streamlines without turbulent fluctuations. The mathematical description relies on the complete Navier-Stokes equations without additional closure models.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Mathematical Formulation</h3>
-                    <p class="guide-text">The laminar flow equations are derived from conservation principles without approximation. For incompressible flow, the momentum equation is:</p>
+            <div id="academy" class="tab-content">
+                <div class="academy-guide">
                     
-                    <div class="equation-block">
-                        <p>∂u<sub>i</sub>/∂t + u<sub>j</sub>∂u<sub>i</sub>/∂x<sub>j</sub> = -1/ρ ∂p/∂x<sub>i</sub> + ν ∂²u<sub>i</sub>/∂x<sub>j</sub>²</p>
+                    <!-- Historical Context and Development -->
+                    <div class="guide-section" style="background: #f0f4f8; border-left: 4px solid #8b5cf6;">
+                        <h3>Historical Context and Development</h3>
+                        <p class="guide-text">Laminar flow represents the fundamental state of viscous fluid motion, governed by the exact Navier-Stokes equations without the need for turbulence modeling or closure approximations.</p>
+                        
+                        <h4>Timeline and Evolution</h4>
+                        <p class="guide-text">The mathematical description of laminar flow has its foundations in the 19th century with the independent work of Claude-Louis Navier (1822) and George Gabriel Stokes (1845), who developed the fundamental equations governing viscous fluid motion. Osborne Reynolds (1883) established the critical Reynolds number concept, defining the transition criterion between laminar and turbulent flow regimes.</p>
+                        
+                        <p class="guide-text">Subsequent analytical solutions by Poiseuille (1840) for pipe flow, Couette (1890) for shear-driven flows, and Blasius (1908) for boundary layer flow over flat plates provided exact benchmarks that remain the gold standard for CFD validation. Modern computational capabilities have enabled the direct numerical solution of the Navier-Stokes equations for increasingly complex laminar flow configurations, maintaining exact mathematical rigor.</p>
                     </div>
-                    
-                    <p class="guide-text">where ν is the kinematic viscosity and no turbulence terms appear.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Reynolds Number Criteria</h3>
-                    <p class="guide-text">The Reynolds number determines flow regime validity. Critical values depend on geometry:</p>
-                    
-                    <div class="term-definitions">
-                        <div class="term-item">
-                            <strong>Pipe Flow:</strong> Re = ρVD/μ < 2000
-                        </div>
-                        <div class="term-item">
-                            <strong>Flat Plate:</strong> Re<sub>x</sub> = ρVx/μ < 500,000
-                        </div>
-                        <div class="term-item">
-                            <strong>Natural Convection:</strong> Ra < 10<sup>8</sup>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Numerical Implementation</h3>
-                    <p class="guide-text">Laminar flow simulations offer computational advantages through reduced complexity and enhanced stability. No turbulence time scales exist, enabling larger time steps and faster convergence.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Boundary Layer Theory</h3>
-                    <p class="guide-text">Laminar boundary layers exhibit well-defined structure with smooth velocity profiles. The boundary layer thickness grows proportionally to the square root of distance from the leading edge.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Validation and Benchmarking</h3>
-                    <p class="guide-text">Laminar flow simulations can be validated against exact analytical solutions for canonical problems including Poiseuille flow, Couette flow, and Blasius boundary layers. These provide rigorous verification of numerical accuracy.</p>
-                </div>
-            </div>
-                    <h3>Fundamental Principles</h3>
-                    <p class="guide-text">Laminar flow represents the fundamental state of fluid motion where viscous forces dominate inertial forces, resulting in smooth, predictable streamlines without turbulent fluctuations. The mathematical description relies on the complete Navier-Stokes equations without additional closure models.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Mathematical Formulation</h3>
-                    <p class="guide-text">The laminar flow equations are derived from conservation principles without approximation. The momentum equation contains only viscous terms related directly to the strain rate through fluid viscosity.</p>
-                    
-                    <div class="equation-block">
-                        <p>∂u<sub>i</sub>/∂t + u<sub>j</sub>∂u<sub>i</sub>/∂x<sub>j</sub> = -1/ρ ∂p/∂x<sub>i</sub> + ν ∂²u<sub>i</sub>/∂x<sub>j</sub>²</p>
-                    </div>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Reynolds Number Criteria</h3>
-                    <p class="guide-text">The Reynolds number determines flow regime validity. Critical values depend on geometry and flow conditions.</p>
-                    
-                    <div class="term-definitions">
-                        <div class="term-item">
-                            <strong>Pipe Flow:</strong> Re = ρVD/μ < 2000
-                        </div>
-                        <div class="term-item">
-                            <strong>Flat Plate:</strong> Re<sub>x</sub> = ρVx/μ < 500,000
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Numerical Implementation</h3>
-                    <p class="guide-text">Laminar flow simulations offer computational advantages through reduced complexity and enhanced stability. The absence of turbulent time scales enables larger time steps and faster convergence.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Boundary Layer Theory</h3>
-                    <p class="guide-text">Laminar boundary layers exhibit well-defined structure with smooth velocity profiles. The boundary layer thickness grows proportionally to the square root of distance from the leading edge.</p>
-                </div>
-
-                <div class="guide-section">
-                    <h3>Validation and Benchmarking</h3>
-                    <p class="guide-text">Laminar flow simulations can be validated against exact analytical solutions for canonical problems including Poiseuille flow, Couette flow, and Blasius boundary layers.</p>
-                </div>
-            </div>
 
                     <!-- Mathematical Foundation -->
                     <div class="guide-section guide-overview">
                         <h3>Mathematical Foundation and Complete Derivation</h3>
-                        <p class="guide-text">The k-epsilon model employs the Boussinesq eddy viscosity hypothesis, relating Reynolds stresses to mean strain rate through a turbulent viscosity. This approach provides closure for the Reynolds-averaged Navier-Stokes equations through two additional transport equations.</p>
+                        <p class="guide-text">Laminar flow is governed by the incompressible Navier-Stokes equations, representing the exact conservation of mass and momentum without turbulence modeling assumptions or closure approximations.</p>
                         
-                        <h4>Turbulent Kinetic Energy Transport Equation:</h4>
+                        <h4>Continuity Equation (Mass Conservation):</h4>
                         <div class="equation-block">
+                            $$\frac{\partial u_i}{\partial x_i} = 0$$
                         </div>
                         
-                        <h4>Dissipation Rate Transport Equation:</h4>
+                        <h4>Momentum Equation (Navier-Stokes):</h4>
                         <div class="equation-block">
+                            $$\frac{\partial u_i}{\partial t} + u_j \frac{\partial u_i}{\partial x_j} = -\frac{1}{\rho}\frac{\partial p}{\partial x_i} + \nu \frac{\partial^2 u_i}{\partial x_j \partial x_j} + g_i$$
                         </div>
                         
-                        <h4>Turbulent Viscosity Definition:</h4>
+                        <h4>Energy Equation (Temperature Transport):</h4>
                         <div class="equation-block">
-                        </div>
-                        
-                        <h4>Production Term:</h4>
-                        <div class="equation-block">
+                            $$\frac{\partial T}{\partial t} + u_j \frac{\partial T}{\partial x_j} = \alpha \frac{\partial^2 T}{\partial x_j \partial x_j} + \frac{\Phi}{\rho c_p}$$
                         </div>
                         
                         <div class="term-definitions">
                             <h4>Variable Definitions:</h4>
-                            <div class="term-item"><strong>k:</strong> Turbulent kinetic energy (m²/s²)</div>
-                            <div class="term-item"><strong>ε:</strong> Turbulent dissipation rate (m²/s³)</div>
-                            <div class="term-item"><strong>μₜ:</strong> Turbulent viscosity (kg/(m·s))</div>
-                            <div class="term-item"><strong>Pₖ:</strong> Production of turbulent kinetic energy (kg/(m·s³))</div>
+                            <div class="term-item"><strong>u_i:</strong> Velocity components (m/s)</div>
+                            <div class="term-item"><strong>p:</strong> Pressure (Pa)</div>
                             <div class="term-item"><strong>ρ:</strong> Fluid density (kg/m³)</div>
-                            <div class="term-item"><strong>uᵢ:</strong> Reynolds-averaged velocity components (m/s)</div>
-                        </div>
-                        
-                        <div class="constants-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Constant</th>
-                                        <th>Value</th>
-                                        <th>Physical Significance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Cμ</td>
-                                        <td>0.09</td>
-                                        <td>Turbulent viscosity coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C₁ε</td>
-                                        <td>1.44</td>
-                                        <td>Dissipation production coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>C₂ε</td>
-                                        <td>1.92</td>
-                                        <td>Dissipation destruction coefficient</td>
-                                    </tr>
-                                    <tr>
-                                        <td>σₖ</td>
-                                        <td>1.0</td>
-                                        <td>Turbulent Prandtl number for k</td>
-                                    </tr>
-                                    <tr>
-                                        <td>σε</td>
-                                        <td>1.3</td>
-                                        <td>Turbulent Prandtl number for ε</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="term-item"><strong>ν:</strong> Kinematic viscosity (m²/s)</div>
+                            <div class="term-item"><strong>T:</strong> Temperature (K)</div>
+                            <div class="term-item"><strong>α:</strong> Thermal diffusivity (m²/s)</div>
+                            <div class="term-item"><strong>Φ:</strong> Viscous dissipation function (W/m³)</div>
+                            <div class="term-item"><strong>g_i:</strong> Gravitational acceleration components (m/s²)</div>
                         </div>
                     </div>
 
                     <!-- Physical Interpretation -->
                     <div class="guide-section">
-                        <h3>Physical Interpretation and Turbulence Physics</h3>
-                        <p class="guide-text">The k-epsilon model embodies fundamental principles of turbulent flow physics through its representation of the energy cascade process, from large-scale turbulent motions to molecular dissipation at the Kolmogorov scale.</p>
+                        <h3>Physical Interpretation and Flow Characteristics</h3>
+                        <p class="guide-text">Laminar flow is characterized by smooth, orderly fluid motion where viscous forces dominate over inertial forces. The flow occurs in well-defined layers or streamlines that do not mix except at the molecular level.</p>
                         
-                        <h4>Energy Cascade Representation</h4>
-                        <p class="guide-text">The turbulent kinetic energy equation captures the balance between production (from mean flow deformation), convection, diffusion, and dissipation. The production term Pₖ represents the extraction of energy from the mean flow through Reynolds stresses acting on mean strain rates, embodying the fundamental mechanism of turbulent energy generation.</p>
-                        
-                        <h4>Dissipation Rate Physics</h4>
-                        <p class="guide-text">The dissipation rate ε represents the rate at which turbulent kinetic energy is converted to internal energy through viscous action at the smallest scales. The ε-equation is largely phenomenological, with the C₁ε term representing production of dissipation proportional to the production of turbulent kinetic energy, while C₂ε represents the self-destruction of dissipation.</p>
-                        
-                        <h4>Turbulent Viscosity Concept</h4>
-                        <p class="guide-text">The Boussinesq hypothesis underlying the k-epsilon model assumes that Reynolds stresses are proportional to mean strain rates through a turbulent viscosity μₜ. This scalar viscosity approximation, while computationally efficient, inherently assumes isotropic turbulence and fails in flows with strong streamline curvature or system rotation.</p>
-                        
-                        <h4>Length and Time Scale Relationships</h4>
-                        <p class="guide-text">The k-epsilon model implicitly defines turbulent length and time scales through the relationships:</p>
+                        <h4>Reynolds Number Criterion</h4>
+                        <p class="guide-text">The transition from laminar to turbulent flow is governed by the Reynolds number, which represents the ratio of inertial to viscous forces:</p>
                         
                         <div class="equation-block">
-                            $$l_t = C_\mu^{3/4} \frac{k^{3/2}}{\var}, \quad \tau_t = \frac{k}{\var}$$
+                            $$Re = \frac{\rho V L}{\mu} = \frac{V L}{\nu}$$
                         </div>
                         
-                        <p class="guide-text">These scales characterize the size and lifetime of energy-containing turbulent eddies, providing the foundation for the turbulent viscosity formulation.</p>
+                        <p class="guide-text">Critical Reynolds numbers for various geometries include Re < 2300 for pipe flow, Re < 5×10⁵ for flow over flat plates, and much lower values for complex geometries with adverse pressure gradients.</p>
+                        
+                        <h4>Viscous Stress Tensor</h4>
+                        <p class="guide-text">The viscous stress tensor for laminar flow is directly proportional to the rate of strain tensor:</p>
+                        
+                        <div class="equation-block">
+                            $$\tau_{ij} = \mu \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right)$$
+                        </div>
+                        
+                        <p class="guide-text">This linear relationship between stress and strain rate is fundamental to Newtonian fluid behavior and distinguishes laminar flow from the complex, nonlinear stress-strain relationships in turbulent flows.</p>
                     </div>
 
-                    <!-- Model Assumptions and Limitations -->
+                    <!-- Analytical Solutions -->
                     <div class="guide-section">
-                        <h3>Model Assumptions and Theoretical Limitations</h3>
-                        <p class="guide-text">The k-epsilon model incorporates several fundamental assumptions that define its range of applicability and inherent limitations in representing complex turbulent flows.</p>
+                        <h3>Classical Analytical Solutions</h3>
+                        <p class="guide-text">Several exact analytical solutions exist for laminar flow, providing benchmarks for CFD verification and fundamental understanding of viscous flow behavior.</p>
                         
-                        <h4>Boussinesq Eddy Viscosity Assumption</h4>
-                        <p class="guide-text">The central assumption of isotropic turbulent viscosity fails in flows with:</p>
+                        <h4>Poiseuille Flow (Pipe Flow)</h4>
+                        <p class="guide-text">For fully developed laminar flow in a circular pipe, the velocity profile is parabolic:</p>
+                        
+                        <div class="equation-block">
+                            $$u(r) = \frac{\Delta p}{4\mu L}(R^2 - r^2) = u_{max}\left(1 - \frac{r^2}{R^2}\right)$$
+                        </div>
+                        
+                        <p class="guide-text">The maximum velocity occurs at the centerline, and the pressure drop is given by the Hagen-Poiseuille equation:</p>
+                        
+                        <div class="equation-block">
+                            $$\Delta p = \frac{32\mu \bar{u} L}{D^2}$$
+                        </div>
+                        
+                        <h4>Couette Flow (Shear-Driven Flow)</h4>
+                        <p class="guide-text">For flow between parallel plates with one moving at constant velocity, the velocity profile is linear:</p>
+                        
+                        <div class="equation-block">
+                            $$u(y) = \frac{U y}{h}$$
+                        </div>
+                        
+                        <h4>Blasius Boundary Layer</h4>
+                        <p class="guide-text">For laminar boundary layer flow over a flat plate, the similarity solution provides the dimensionless velocity profile as a function of the similarity variable η = y√(U/νx).</p>
+                    </div>
+
+                    <!-- Computational Considerations -->
+                    <div class="guide-section">
+                        <h3>Computational Implementation and Numerical Methods</h3>
+                        <p class="guide-text">Direct numerical solution of the Navier-Stokes equations for laminar flow requires careful attention to numerical schemes, boundary conditions, and mesh design to maintain the mathematical accuracy inherent in the exact equations.</p>
+                        
+                        <h4>Discretization Methods</h4>
+                        <p class="guide-text">The choice of spatial discretization scheme significantly affects solution accuracy. Second-order or higher schemes are recommended to minimize numerical diffusion, which can artificially stabilize the solution and mask physical instabilities near transition.</p>
                         
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text">Strong streamline curvature and system rotation</span>
+                                <span class="guide-text">Finite Volume Method: Conservative formulation ensuring mass and momentum conservation</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Significant buoyancy effects and stratification</span>
+                                <span class="guide-text">Finite Element Method: Superior handling of complex geometries and boundary conditions</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Three-dimensional separation and corner flows</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Flows with significant Reynolds stress anisotropy</span>
+                                <span class="guide-text">Spectral Methods: Highest accuracy for smooth solutions in simple geometries</span>
                             </li>
                         </ul>
                         
-                        <h4>High Reynolds Number Assumption</h4>
-                        <p class="guide-text">The standard k-epsilon formulation assumes fully developed turbulence, making it inappropriate for:</p>
-                        
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Transitional flows and laminar-turbulent transition</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Near-wall regions requiring viscous sublayer resolution</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Low Reynolds number applications</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>Gradient Diffusion Hypothesis</h4>
-                        <p class="guide-text">The assumption that turbulent transport is proportional to mean gradients becomes questionable in complex flows with strong pressure gradients, recirculation, or separation.</p>
+                        <h4>Pressure-Velocity Coupling</h4>
+                        <p class="guide-text">The incompressible Navier-Stokes equations require special treatment due to the absence of an explicit pressure equation. Common approaches include SIMPLE, PISO, and coupled algorithms, with coupled solvers often providing superior convergence for laminar flows.</p>
                     </div>
 
-                    <!-- Validation and Performance Database -->
+                    <!-- Validation and Verification -->
                     <div class="guide-section">
-                        <h3>Model Validation and Performance Database</h3>
-                        <p class="guide-text">The k-epsilon model has been extensively validated against experimental data across a wide range of flow configurations, establishing its strengths and limitations for engineering applications.</p>
+                        <h3>Model Validation and Verification Database</h3>
+                        <p class="guide-text">Laminar flow solutions can be rigorously validated against analytical solutions and high-quality experimental data, providing confidence in numerical accuracy that is unmatched by turbulent flow simulations.</p>
                         
-                        <h4>Successful Applications</h4>
+                        <h4>Standard Validation Cases</h4>
                         <ul class="guide-list">
                             <li class="guide-item">
-                                <span class="guide-text">Fully developed channel and pipe flows with excellent agreement</span>
+                                <span class="guide-text">Lid-driven cavity flow: Benchmark for recirculating laminar flows</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Free jets and mixing layers with reasonable accuracy</span>
+                                <span class="guide-text">Flow past circular cylinder: Transition from steady to unsteady laminar flow</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Simple heat exchanger geometries and internal flows</span>
+                                <span class="guide-text">Backward-facing step: Laminar separation and reattachment</span>
                             </li>
                             <li class="guide-item">
-                                <span class="guide-text">Large-scale atmospheric and environmental flows</span>
+                                <span class="guide-text">Natural convection in cavities: Buoyancy-driven laminar flows</span>
                             </li>
                         </ul>
                         
-                        <h4>Known Deficiencies</h4>
-                        <ul class="guide-list">
-                            <li class="guide-item">
-                                <span class="guide-text">Over-prediction of spreading rates in round jets</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Under-prediction of separation in adverse pressure gradients</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Poor performance in swirling and rotating flows</span>
-                            </li>
-                            <li class="guide-item">
-                                <span class="guide-text">Inadequate near-wall heat transfer prediction</span>
-                            </li>
-                        </ul>
-                        
-                        <h4>Benchmark Test Cases</h4>
-                        <p class="guide-text">Standard validation cases include the backward-facing step, flow over a flat plate, turbulent pipe flow, and the plane mixing layer. These cases provide quantitative measures of model performance across different flow physics.</p>
+                        <h4>Experimental Validation</h4>
+                        <p class="guide-text">High-quality experimental data for laminar flows provides additional validation opportunities, particularly for heat transfer coefficients, pressure distributions, and flow visualization studies. The deterministic nature of laminar flow enables precise comparison between computational and experimental results.</p>
                     </div>
 
-                    <!-- Modern Variants and Extensions -->
+                    <!-- Advanced Applications -->
                     <div class="guide-section">
-                        <h3>Modern Variants and Theoretical Extensions</h3>
-                        <p class="guide-text">Recognizing the limitations of the standard k-epsilon model, numerous variants have been developed to address specific deficiencies while maintaining computational efficiency.</p>
+                        <h3>Advanced Numerical Methods and Modern Developments</h3>
+                        <p class="guide-text">Modern computational capabilities have enabled the solution of increasingly complex laminar flow problems, including multi-physics coupling, non-Newtonian behavior, and microfluidic applications.</p>
                         
-                        <h4>RNG k-epsilon Model</h4>
-                        <p class="guide-text">The Renormalization Group k-epsilon model incorporates systematic removal of small-scale motions from the Navier-Stokes equations, resulting in modified model constants and an additional term in the ε-equation to improve performance in rapidly strained flows.</p>
+                        <h4>Multi-Physics Coupling</h4>
+                        <p class="guide-text">Laminar flow solutions often serve as the foundation for coupled simulations involving heat transfer, mass transfer, chemical reactions, and structural mechanics. The deterministic nature of laminar flow provides a stable base for these complex multi-physics interactions.</p>
                         
-                        <h4>Realizable k-epsilon Model</h4>
-                        <p class="guide-text">This variant ensures mathematical realizability constraints are satisfied, preventing non-physical negative normal stresses. The realizable model employs a variable Cμ coefficient and modified ε-equation, improving performance in flows with strong streamline curvature.</p>
+                        <h4>Microfluidics and Lab-on-Chip</h4>
+                        <p class="guide-text">At microscales, laminar flow dominates due to low Reynolds numbers, enabling precise control of fluid mixing, particle manipulation, and chemical reactions. Surface tension effects and electrokinetic phenomena become increasingly important.</p>
                         
-                        <h4>Enhanced Wall Treatment</h4>
-                        <p class="guide-text">Various near-wall modifications enable integration to the wall surface, combining the robustness of wall functions with the accuracy of low-Reynolds number formulations. These hybrid approaches automatically adjust based on local mesh resolution.</p>
+                        <h4>Non-Newtonian Extensions</h4>
+                        <p class="guide-text">The laminar flow framework extends naturally to non-Newtonian fluids, where the linear stress-strain relationship is replaced by more complex constitutive equations. Examples include power-law fluids, viscoelastic materials, and Bingham plastics.</p>
                         
-                        <h4>Nonlinear Eddy Viscosity Models</h4>
-                        <p class="guide-text">Extensions incorporating nonlinear stress-strain relationships partially address Reynolds stress anisotropy while retaining the two-equation framework. These models represent a compromise between computational efficiency and physical accuracy.</p>
+                        <h4>High-Performance Computing</h4>
+                        <p class="guide-text">Modern parallel computing architectures enable the solution of laminar flow problems with unprecedented resolution and complexity. Direct numerical simulation capabilities continue to expand the range of accessible Reynolds numbers and geometric complexity.</p>
                     </div>
 
-                    <!-- Contemporary Research -->
-                    <div class="guide-section">
-                        <h3>Contemporary Research and Future Directions</h3>
-                        <p class="guide-text">While newer turbulence models have superseded k-epsilon for many applications, ongoing research continues to refine and extend its applicability, particularly in specialized domains and large-scale simulations.</p>
-                        
-                        <h4>Machine Learning Integration</h4>
-                        <p class="guide-text">Recent developments incorporate machine learning techniques to improve model constants and functional forms based on high-fidelity simulation data. These data-driven approaches show promise for enhancing k-epsilon performance in specific application domains.</p>
-                        
-                        <h4>Computational Efficiency Optimization</h4>
-                        <p class="guide-text">Modern implementations focus on GPU acceleration and massively parallel architectures, leveraging the k-epsilon model's computational simplicity for exascale computing applications in climate modeling and urban flow simulation.</p>
-                        
-                        <h4>Uncertainty Quantification</h4>
-                        <p class="guide-text">Contemporary research addresses epistemic uncertainty in turbulence modeling through stochastic formulations and Bayesian approaches, providing probabilistic confidence bounds for k-epsilon predictions.</p>
-                        
-                        <h4>Multiphase and Reacting Flow Extensions</h4>
-                        <p class="guide-text">Specialized variants continue development for complex multiphase flows, combustion applications, and heat transfer scenarios where the k-epsilon framework provides a robust foundation for additional physics modeling.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1319,36 +1040,21 @@
     </script>
 
     <script>
-        }
-
-                }
-            }
-        }
-
-    </script>
-
-    <script>
         function navigateToModel(modelFile) {
             if (modelFile) {
-                console.log("Navigating to:", modelFile);
                 window.location.href = modelFile;
-            }
-        }
 
         function setCurrentModel() {
-            const currentFile = window.location.pathname.split("/").pop();
-            const dropdown = document.getElementById("modelSelect");
+            const currentFile = window.location.pathname.split('/').pop();
+            const dropdown = document.getElementById('modelSelect');
             if (dropdown) {
                 for (let option of dropdown.options) {
                     if (option.value === currentFile) {
                         option.selected = true;
                         break;
-                    }
-                }
-            }
-        }
 
-        document.addEventListener("DOMContentLoaded", setCurrentModel);
+        document.addEventListener('DOMContentLoaded', setCurrentModel);
     </script>
+
 </body>
 </html>

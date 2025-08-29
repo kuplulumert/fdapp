@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scale-Adaptive Simulation (SAS) - CFD Handbook</title>
+    <title>SAS Model - Scale-Adaptive Simulation - Technical Guide</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">        
 
         </script>
@@ -37,16 +37,20 @@
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+            to { opacity: 1; transform: translateY(0); }
+        }
             min-height: 100vh;
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Header Navigation */
 
                 /* Premium Header Navigation */
         .header {
@@ -181,6 +185,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: #2d3748;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -200,6 +205,25 @@
 
         .logo:hover::after {
             width: 100%;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+            color: #718096;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
         
@@ -223,7 +247,6 @@
             opacity: 0.9;
             font-weight: 300;
         }        \
-
                 .content-tabs {
             display: flex;
             gap: 2.5rem;
@@ -237,46 +260,42 @@
         }
 
         .content-tab {
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            color: #4a5568;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        color: #4a5568;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 12px;
             white-space: nowrap;
-            border: none;
-            background: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
         }
-
         .content-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
         }
-
         .content-tab:hover::before,
         .content-tab.active::before {
-            opacity: 1;
+        opacity: 1;
         }
-
         .content-tab:hover,
         .content-tab.active {
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
         }
-
         .content-tab:first-child {
-            border-left: none;
+        border-left: none;
         }
 
         .tab-content {
@@ -533,8 +552,6 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
                 min-width: auto;
-            }
-}
     </style>
 </head>
 <body>
@@ -568,8 +585,8 @@
         <div class="main-content">
             <!-- Page Header -->
             <div class="page-header">
-                <h1>k-ε Turbulence Model</h1>
-                <p class="model-subtitle">Two-equation RANS model for general-purpose turbulent flow simulation</p>
+                <h1>SAS Model - Scale-Adaptive Simulation</h1>
+                <p class="model-subtitle">Hybrid RANS-LES approach for scale-adaptive turbulent flow simulation</p>
             </div>
 
             <!-- Content Tabs -->
@@ -1068,27 +1085,22 @@
         }
     </script>
 
-<script>
-    function navigateToModel(modelFile) {
-        if (modelFile) {
-            console.log("Navigating to:", modelFile);
-            window.location.href = modelFile;
-        }
-    }
-
-    function setCurrentModel() {
-        const currentFile = window.location.pathname.split("/").pop();
-        const dropdown = document.getElementById("modelSelect");
-        if (dropdown) {
-            for (let option of dropdown.options) {
-                if (option.value === currentFile) {
-                    option.selected = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", setCurrentModel);
-</script>
     <script>
+        function navigateToModel(modelFile) {
+            if (modelFile) {
+                window.location.href = modelFile;
+
+        function setCurrentModel() {
+            const currentFile = window.location.pathname.split('/').pop();
+            const dropdown = document.getElementById('modelSelect');
+            if (dropdown) {
+                for (let option of dropdown.options) {
+                    if (option.value === currentFile) {
+                        option.selected = true;
+                        break;
+
+        document.addEventListener('DOMContentLoaded', setCurrentModel);
+    </script>
+
+</body>
+</html>
