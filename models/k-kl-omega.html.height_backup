@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>k-kL-ω Transition Model - Technical Guide</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6">        
+
+        </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>
+        
+    </script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
     <style>
         * {
             margin: 0;
@@ -23,16 +36,20 @@
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+            to { opacity: 1; transform: translateY(0); }
+        }
             min-height: 100vh;
             opacity: 0;
             animation: fadeInPage 1.2s ease-out forwards;
             overflow-x: hidden;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Header Navigation */
 
                 /* Premium Header Navigation */
         .header {
@@ -167,6 +184,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: #2d3748;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -188,7 +206,31 @@
             width: 100%;
         }
 
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+            color: #718096;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
         
+
+        .main-content {
+            width: 100%;
+            padding: 0;
+        }
 
         .page-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -209,7 +251,6 @@
             opacity: 0.9;
             font-weight: 300;
         }        \
-
                 .content-tabs {
             display: flex;
             gap: 2.5rem;
@@ -223,225 +264,108 @@
         }
 
         .content-tab {
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            color: #4a5568;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        color: #4a5568;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 12px;
             white-space: nowrap;
-            border: none;
-            background: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
         }
-
         .content-tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
         }
-
         .content-tab:hover::before,
         .content-tab.active::before {
-            opacity: 1;
+        opacity: 1;
         }
-
         .content-tab:hover,
         .content-tab.active {
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
         }
-
         .content-tab:first-child {
-            border-left: none;
+        border-left: none;
         }
 
         .tab-content {
             display: none;
-            width: 100%;
-            padding: 0;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* Industry Guide Styling */
-        .industry-guide {
-            width: 100%;
+        .industry-guide, .academy-guide {
             padding: 2rem 3rem;
-            background: #fafbfc;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .industry-guide h3 {
-            color: #1f2937;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        .industry-guide h4 {
-            color: #374151;
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 2rem 0 1rem 0;
-            font-family: system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
+            overflow-x: hidden;
         }
 
         .guide-section {
-            margin-bottom: 3rem;
-            background: white;
-            border-radius: 8px;
+            margin-bottom: 2.5rem;
             padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .guide-overview { background: #f8faff; border-top: 4px solid #3b82f6; }
-        .guide-strengths { background: #f0fdf4; border-top: 4px solid #22c55e; }
-        .guide-limitations { background: #fef2f2; border-top: 4px solid #ef4444; }
-        .guide-use-cases { background: #fffbeb; border-top: 4px solid #f59e0b; }
-        .guide-choice { background: #f3e8ff; border-top: 4px solid #8b5cf6; }
-        .guide-avoid { background: #fdf2f8; border-top: 4px solid #ec4899; }
-        .guide-tips { background: #ecfdf5; border-top: 4px solid #10b981; }
-        .guide-performance { background: #f0f9ff; border-top: 4px solid #0ea5e9; }
-        .guide-pitfalls { background: #fef3c7; border-top: 4px solid #d97706; }
-
-        .guide-list {
-            list-style: none;
-        }
-
-        .guide-item {
-            margin: 1rem 0;
-            position: relative;
-        }
-
-        .guide-text {
-            display: block;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #4b5563;
-            padding-left: 0;
-        }
-
-        .use-case-item, .avoid-item {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 6px;
-            border-left: 4px solid #d1d5db;
-        }
-
-        .guide-emphasis {
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: #1f2937;
-        }
-
-        /* Academy Guide Styling */
-        .academy-guide {
-            width: 100%;
-            padding: 2rem 3rem;
-            line-height: 1.6;
-        }
-
-        .academy-guide h3 {
+        .guide-section h3 {
+            color: #2d3748;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1f2937;
-            margin: 3rem 0 1.5rem 0;
-            line-height: 1.3;
+            margin: 0 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
         }
 
-        .academy-guide h3:first-child {
-            margin-top: 0;
-        }
-
-        .academy-guide h4 {
+        .guide-section h4 {
+            color: #4a5568;
             font-size: 1.2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #374151;
-            margin: 2.5rem 0 1rem 0;
-            line-height: 1.4;
+            margin: 1.5rem 0 1rem 0;
         }
 
-        .academy-guide .guide-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #4b5563;
-            margin-bottom: 1.5rem;
-            text-align: justify;
+        .guide-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .academy-guide .guide-section {
-            margin-bottom: 4rem;
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .academy-guide .guide-list {
-            margin: 1.5rem 0;
-        }
-
-        .academy-guide .guide-item {
+        .guide-item {
             margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
         }
 
-        /* Equation Styling */
-        .equation-block {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            overflow-x: auto;
-            text-align: center;
+        .guide-text {
+            line-height: 1.6;
+            color: #4a5568;
+            text-align: justify;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
 
-        .equation-block .MathJax {
-            font-size: 1.1em;
-        }
-
-        /* Term Definitions */
-        .term-definitions {
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .term-item {
-            margin: 0.75rem 0;
-            font-size: 0.95rem;
-            color: #4b5563;
-        }
-
-        .term-item strong {
-            color: #1f2937;
+        .guide-emphasis {
+            color: #5a67d8;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-clip: text;
@@ -449,38 +373,119 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Constants Table */
-        .constants-table {
+        .guide-overview {
+            background: #f0f4f8;
+            border-left: 4px solid #4299e1;
+        }
+
+        .guide-advantages {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+        }
+
+        .guide-performance {
+            background: #fffaf0;
+            border-left: 4px solid #ed8936;
+        }
+
+        .guide-applications {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+        }
+
+        .guide-choice {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+        }
+
+        .guide-avoid {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .guide-tips {
+            background: #edf2f7;
+            border-left: 4px solid #718096;
+        }
+
+        .guide-optimization {
+            background: #faf5ff;
+            border-left: 4px solid #9f7aea;
+        }
+
+        .guide-limitations {
+            background: #fffbeb;
+            border-left: 4px solid #f6ad55;
+        }
+
+        .use-case-item, .avoid-item {
             background: white;
-            border: 1px solid #e5e7eb;
+            padding: 1rem;
+            margin: 0.5rem 0;
             border-radius: 8px;
-            margin: 1.5rem 0;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .equation-block {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .term-definitions {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .term-item {
+            margin: 0.5rem 0;
+            padding: 0.25rem 0;
+        }
+
+        .constants-table {
+            overflow-x: auto;
+            margin: 1rem 0;
         }
 
         .constants-table table {
             width: 100%;
+            min-width: 400px;
             border-collapse: collapse;
-        }
-
-        .constants-table th,
-        .constants-table td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .constants-table th {
-            background: #f9fafb;
+            background: #edf2f7;
+            color: #2d3748;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: #374151;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .constants-table td {
-            color: #4b5563;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
         }
 
         /* Responsive Design */
@@ -519,15 +524,7 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
                 min-width: auto;
-            }
-}
     </style>
-    
-    <!-- KaTeX for math rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-    
 </head>
 <body>
     <div class="container">
@@ -558,11 +555,11 @@
         </div>
 
     <div class="container">
-
+        <div class="main-content">
             <!-- Page Header -->
             <div class="page-header">
-                <h1>k-ω SST Model</h1>
-                <p class="model-subtitle">Industry standard combining accuracy with reliability</p>
+                <h1>k-kL-ω Transition Model</h1>
+                <p class="model-subtitle">Three-equation transition model for automatic transition prediction</p>
             </div>
 
             <!-- Content Tabs -->
@@ -1123,3 +1120,4 @@
 
     </div>
 </body>
+</html>
